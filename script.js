@@ -29,10 +29,13 @@ fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid
     var lat = location.lat;
     var lon = location.lon;
     console.log("Latitude:" + lat + ", Longitude:" + lon);
+    getForecast(lat, lon);
   })
   .catch((error) => {
     console.error("Error:", error);
   });
+
+  
 };
 // function getLong() {
 //     var lon = 
@@ -42,7 +45,10 @@ fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid
 //     var lat =
 // }
 
-// function getCity(city) {
-//     var api = "api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=4587fd4a8c5e5c55568c068a80aaffee"
-// fetch(api)
-// }
+function getForecast(lat, lon) {
+    var api = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=4587fd4a8c5e5c55568c068a80aaffee"
+fetch(api)
+  .then((response) => response.json())
+  .then((data) => {
+  })
+}
