@@ -6,10 +6,10 @@ var cityDisplay = document.querySelector("#city");
 submit.addEventListener("click", function(event) {
     event.preventDefault();
     console.log("test")
-    city = cityNameInput.value.trim();
+    var city = cityNameInput.value.trim();
 
   if (city) {
-    getCity(city);
+    getLonAndLat(city);
 
     cityDisplay.textContent = '';
     // forecastContainter.textContent = '';
@@ -20,7 +20,29 @@ submit.addEventListener("click", function(event) {
 
 });
 
-function getCity(city) {
-    // var api = "api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=4587fd4a8c5e5c55568c068a80aaffee"
-fetch(api)
-}
+function getLonAndLat(city) {
+fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=4587fd4a8c5e5c55568c068a80aaffee")
+  .then((response) => response.json())
+  .then((data) => {
+    // var location = data.results.geometry.location;
+    var location = data[0];
+    var lat = location.lat;
+    var lon = location.lon;
+    console.log("Latitude:" + lat + ", Longitude:" + lon);
+  })
+  .catch((error) => {
+    console.error("Error:", error);
+  });
+};
+// function getLong() {
+//     var lon = 
+// }
+
+// function getLat() {
+//     var lat =
+// }
+
+// function getCity(city) {
+//     var api = "api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=4587fd4a8c5e5c55568c068a80aaffee"
+// fetch(api)
+// }
