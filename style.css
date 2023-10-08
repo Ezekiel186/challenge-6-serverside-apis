@@ -4,6 +4,10 @@
     background-color: cadetblue;
 }
 
+button {
+    margin: 10px;
+}
+
 .hide {
     display: none;
 }
