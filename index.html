@@ -2,12 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
   <link rel="stylesheet" href="./style.css"/>
-    <title>weather</title>
+    <title>weather website</title>
 </head>
 <body>
+    <header class="top">
+        <h1>Weather Dashboard</h1>
+    </header>
+
+    <main class="row justify-space-between">
+        <div class="col-12 col-md-4">
+    
+          <div class="card">
+            <h3 class="card-header">Search City</h3>
+            <form id="user-form" class="card-body">
+              <label class="form-label" for="city-name"></label>
+              <input name="city-name" id="city-name" type="text" autofocus="true" class="form-input" />
+              <button type="submit">Search</button>
+            </form>
+          </div>
+    
+          <div class="card">
+            <h3 class="card-header">Cities Searched:</h3>
+            <div id="history-container" class="card-body">              
+              <button class="btn1 hide"></button>
+              <button class="btn2 hide"></button>
+              <button class="btn3 hide"></button>
+              <button class="btn4 hide"></button>
+              <button class="btn5 hide"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-8"><h1>City: <div id="city-name"></div></h1>
+        <div id="city-info" class="list-group"></div>
+        <div class="forecast-container">
+          <h2 class="subtitle">5 day forecast: <span id="5-day-forecast"></span></h2>
+          <div id="forecast" class="list-group"></div>
+        </div>
+    </div>
+      </main>
+
+    <script src="./script.js"></script>
     
 </body>
 </html>
