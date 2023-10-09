@@ -6,6 +6,7 @@ var date1 = document.querySelector(".date1")
 var wind1text = document.querySelector(".wind1")
 var temp1text = document.querySelector(".temp1")
 var hum1text = document.querySelector(".hum1")
+var image1 = document.getElementById("image1")
 
 var date2 = document.querySelector(".date2")
 var wind2text = document.querySelector(".wind2")
@@ -101,6 +102,11 @@ fetch(api)
     hum1text.textContent = hum1 + "%"
     var temp1 = data.list[0].main.temp;
     temp1text.textContent = ((temp1 - 273.15) * 9/5 + 32).toFixed(2) + " °F"
+    var iconCode1 = data.list[0].weather[0].icon
+    console.log(iconCode1)
+    var icon = "http://openweathermap.org/img/wn/" + iconCode1 + ".png"
+    image1.src = icon
+
 
     var apiDate2 = data.list[7].dt_txt;
     console.log(apiDate2);
