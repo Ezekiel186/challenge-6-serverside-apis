@@ -49,6 +49,20 @@ if (localStorage.getItem("cityNames")) {
     populateContainer()
 }
 
+function populateContainer() {
+    for (var i = 0; i < savedSearches.length; i++) {
+        var savedCity = document.createElement("button");
+        savedCity.textContent = savedSearches[i]
+        historyContainer.appendChild(savedCity)
+        savedCity.addEventListener('click', function(event) {
+            // todayIn.textContent = event.target.textContent;
+            var cityName = event.target.textContent;
+            todayIn.textContent = cityName;
+            getLonAndLat(cityName);
+        });
+    }
+}
+
 submit.addEventListener("click", function(event) {
     event.preventDefault();
     console.log("test")
@@ -67,6 +81,7 @@ submit.addEventListener("click", function(event) {
     // cityDisplay.textContent = '';
     // forecastContainter.textContent = '';
     save.addEventListener("click", function() {
+        todayIn.textContent = save.textContent;
         getLonAndLat(city)
     })
     todayIn.textContent = cityNameInput.value;
@@ -76,18 +91,6 @@ submit.addEventListener("click", function(event) {
   }
 
 });
-
-function populateContainer() {
-    for (var i = 0; i < savedSearches.length; i++) {
-        var savedCity = document.createElement("button");
-        savedCity.textContent = savedSearches[i]
-        historyContainer.appendChild(savedCity)
-        savedCity.addEventListener('click', function(event) {
-            var cityName = event.target.textContent;
-            getLonAndLat(cityName);
-        });
-    }
-}
 
 function getLonAndLat(city) {
 fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=4587fd4a8c5e5c55568c068a80aaffee")
