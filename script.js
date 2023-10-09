@@ -1,6 +1,8 @@
 var cityNameInput = document.querySelector("#city-name");
 var submit = document.getElementById("submit");
 var historyContainer = document.getElementById("history-container")
+var todayIn = document.querySelector(".today-in")
+var date1 = document.querySelector(".date1")
 // var button = document.querySelector(".btn1")
 // var cityDisplay = document.querySelector("#city");
 // var forecastContainter = document.querySelector(".forecast-container");
@@ -12,11 +14,12 @@ submit.addEventListener("click", function(event) {
 
   if (city) {
     getLonAndLat(city);
-    localStorage.setItem("cityNameInput", cityNameInput.value);
+    // localStorage.setItem("cityNameInput", cityNameInput.value);
     console.log(cityNameInput.value)
     var save = document.createElement("button")
     save.textContent = cityNameInput.value;
     historyContainer.appendChild(save)
+    todayIn.textContent = cityNameInput.value;
     // cityDisplay.textContent = '';
     // forecastContainter.textContent = '';
     cityNameInput.value = '';
@@ -56,6 +59,12 @@ function getForecast(lat, lon) {
 fetch(api)
   .then((response) => response.json())
   .then((data) => {
-    console.log(data)
+    console.log(data);
+    var name = data.city.name;
+    console.log(name);
+    var apiDate1 = data.list[0].dt_txt;
+    console.log(apiDate1);
+    var takeDate1 = apiDate1.split(" ")
+    date1.textContent = "(" + takeDate1[0] + ")"
   })
 }
