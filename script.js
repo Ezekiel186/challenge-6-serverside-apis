@@ -38,9 +38,16 @@ var temp6text = document.querySelector(".temp6")
 var hum6text = document.querySelector(".hum6")
 var image6 = document.getElementById("image6")
 
+var savedSearches = []
+
 // var button = document.querySelector(".btn1")
 // var cityDisplay = document.querySelector("#city");
 // var forecastContainter = document.querySelector(".forecast-container");
+
+if (localStorage.getItem("cityNames")) {
+    savedSearches = JSON.parse(localStorage.getItem("cityNames"))
+    populateContainer()
+}
 
 submit.addEventListener("click", function(event) {
     event.preventDefault();
@@ -55,14 +62,32 @@ submit.addEventListener("click", function(event) {
     save.textContent = cityNameInput.value;
     historyContainer.appendChild(save)
     todayIn.textContent = cityNameInput.value;
+    savedSearches.push(city)
+    localStorage.setItem("cityNames", JSON.stringify(savedSearches))
     // cityDisplay.textContent = '';
     // forecastContainter.textContent = '';
+    save.addEventListener("click", function() {
+        getLonAndLat(city)
+    })
+    todayIn.textContent = cityNameInput.value;
     cityNameInput.value = '';
   } else {
     alert('Please enter a real city');
   }
 
 });
+
+function populateContainer() {
+    for (var i = 0; i < savedSearches.length; i++) {
+        var savedCity = document.createElement("button");
+        savedCity.textContent = savedSearches[i]
+        historyContainer.appendChild(savedCity)
+        savedCity.addEventListener('click', function(event) {
+            var cityName = event.target.textContent;
+            getLonAndLat(cityName);
+        });
+    }
+}
 
 function getLonAndLat(city) {
 fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=4587fd4a8c5e5c55568c068a80aaffee")
@@ -90,7 +115,7 @@ fetch("http://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid
 // }
 
 function getForecast(lat, lon) {
-    var api = "http://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=4587fd4a8c5e5c55568c068a80aaffee"
+    var api = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=4587fd4a8c5e5c55568c068a80aaffee"
 fetch(api)
   .then((response) => response.json())
   .then((data) => {
