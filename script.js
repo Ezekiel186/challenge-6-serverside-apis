@@ -3,6 +3,9 @@ var submit = document.getElementById("submit");
 var historyContainer = document.getElementById("history-container")
 var todayIn = document.querySelector(".today-in")
 var date1 = document.querySelector(".date1")
+var wind1text = document.querySelector(".wind1")
+var temp1text = document.querySelector(".temp1")
+var hum1text = document.querySelector(".hum1")
 // var button = document.querySelector(".btn1")
 // var cityDisplay = document.querySelector("#city");
 // var forecastContainter = document.querySelector(".forecast-container");
@@ -66,5 +69,12 @@ fetch(api)
     console.log(apiDate1);
     var takeDate1 = apiDate1.split(" ")
     date1.textContent = "(" + takeDate1[0] + ")"
+    var wind1 = data.list[0].wind.speed;
+    console.log(wind1);
+    wind1text.textContent = wind1 + "MPH";
+    var hum1 = data.list[0].main.humidity;
+    hum1text.textContent = hum1 + "%"
+    var temp1 = data.list[0].main.temp;
+    temp1text.textContent = ((temp1 - 273.15) * 9/5 + 32).toFixed(2) + " °F"
   })
 }

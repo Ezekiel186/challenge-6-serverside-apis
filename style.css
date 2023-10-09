@@ -4,10 +4,10 @@
     background-color: cadetblue;
 }
 
-
-
 .card {
     margin: 10px;
+    min-height: 300px;
+    min-width: 300px;
 }
 
 button {
@@ -16,8 +16,4 @@ button {
 
 .hide {
     display: none;
-}
-
-.to {
-    margin: 0px;
 }
