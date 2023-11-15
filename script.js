@@ -40,10 +40,6 @@ var image6 = document.getElementById("image6")
 
 var savedSearches = []
 
-// var button = document.querySelector(".btn1")
-// var cityDisplay = document.querySelector("#city");
-// var forecastContainter = document.querySelector(".forecast-container");
-
 if (localStorage.getItem("cityNames")) {
     savedSearches = JSON.parse(localStorage.getItem("cityNames"))
     populateContainer()
@@ -51,30 +47,31 @@ if (localStorage.getItem("cityNames")) {
 
 submit.addEventListener("click", function(event) {
     event.preventDefault();
-    console.log("test")
     var city = cityNameInput.value.trim();
 
-  if (city) {
-    getLonAndLat(city);
-    // localStorage.setItem("cityNameInput", cityNameInput.value);
-    console.log(cityNameInput.value)
-    var save = document.createElement("button")
-    save.textContent = cityNameInput.value;
-    historyContainer.appendChild(save)
-    todayIn.textContent = cityNameInput.value;
-    savedSearches.push(city)
-    localStorage.setItem("cityNames", JSON.stringify(savedSearches))
-    // cityDisplay.textContent = '';
-    // forecastContainter.textContent = '';
-    save.addEventListener("click", function() {
-        getLonAndLat(city)
-    })
-    todayIn.textContent = cityNameInput.value;
-    cityNameInput.value = '';
-  } else {
-    alert('Please enter a real city');
-  }
+    if (city) {
+        if (!savedSearches.includes(city)) {
+            getLonAndLat(city);
 
+            var save = document.createElement("button");
+            save.textContent = city;
+            historyContainer.appendChild(save);
+
+            todayIn.textContent = city;
+            savedSearches.push(city);
+            localStorage.setItem("cityNames", JSON.stringify(savedSearches));
+
+            save.addEventListener("click", function() {
+                getLonAndLat(city);
+            });
+
+            cityNameInput.value = '';
+        } else {
+            alert('City already saved.');
+        }
+    } else {
+        alert('Please enter a real city');
+    }
 });
 
 function populateContainer() {
@@ -89,6 +86,7 @@ function populateContainer() {
         });
     }
 }
+
 
 function getLonAndLat(city) {
 fetch("https://api.openweathermap.org/geo/1.0/direct?q=" + city + "&limit=1&appid=4587fd4a8c5e5c55568c068a80aaffee")
